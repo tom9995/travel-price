@@ -1,0 +1,35 @@
+.list-container {
+  background-image: url("./home-image.jpg");
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  color: white;
+
+  .list-header-container {
+    display: flex;
+
+    .header-icon {
+      width: 100px;
+    }
+    .header-title {
+      // font-size: large;
+      font-size: 60px;
+      //   font-weight: bold;
+    }
+    .sign-out-button {
+      display: flex;
+      margin-left: auto;
+      gap: 10px;
+      margin-right: 10px;
+      padding-top: 10px;
+      font-size: 30px;
+    }
+  }
+  .list-body-container {
+    .list-form-container {
+      gap: 5px;
+      display: flex;
+      padding-left: 10px;
+    }
+  }
+}

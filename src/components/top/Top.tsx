@@ -1,6 +1,5 @@
 // import React from "react";
 import { useEffect, useState } from "react";
-import { getClient } from "../../lib/supabase";
 import "./Top.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { signIn } from "../../features/UserSlice";
@@ -18,18 +17,18 @@ export default function Top() {
   const handleLogin = async () => {
     // ログイン
     const signInUser = await authRepository.signin(email, password);
-    // console.log(signInUser);
+    console.log(signInUser);
     // stateの更新
-    dispatch(
-      signIn({
-        email: signInUser.email,
-        // password:signInUser.password,
-      })
-    );
     setEmail("");
     setPassword("");
-    // console.log("clicked");
-    if (signInUser) {
+    if (signInUser.userName) {
+      dispatch(
+        signIn({
+          email: signInUser.email,
+          // password:signInUser.password,
+        })
+      );
+      // console.log("clicked");
       navigate("/list");
     }
   };

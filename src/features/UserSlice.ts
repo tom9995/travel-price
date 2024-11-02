@@ -10,7 +10,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     signIn: (state, action) => {
-      console.log(action.payload);
+      //   console.log(action.payload);
       //   ログイン後のstateの更新
       state.user = action.payload;
     },
