@@ -30,6 +30,8 @@ export default function Top() {
       );
       // console.log("clicked");
       navigate("/list");
+    } else {
+      window.alert("ログインに失敗しました");
     }
   };
 

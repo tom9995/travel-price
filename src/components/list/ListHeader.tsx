@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { authRepository } from "../../repositories/auth";
 import { useAppDispatch } from "../../app/hooks";
 import { signOut } from "../../features/UserSlice";
+import PersonIcon from "@mui/icons-material/Person";
 
 type Props = {
   name: string;
@@ -29,7 +30,7 @@ export default function ListHeader(props: Props) {
       />
       <p className="header-title">{props.name}</p>
       <p className="sign-out-button" onClick={handelSignout}>
-        サインアウト
+        <PersonIcon />
       </p>
     </div>
   );
