@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Top from "./components/top/Top";
-import ListDetails from "./components/list/ListDetails";
+import ListDetails from "./components/list/listDetails/ListDetails";
 import List from "./components/list/List";
 import Signup from "./components/signup/Signup";
 import { useState } from "react";

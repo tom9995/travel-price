@@ -32,9 +32,9 @@ export default function List() {
     setTravelList(newTravelList);
   };
 
-  const handleListClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handleListClick = (e: any) => {
     // console.log(e.target.innerText);
-    navigate("/listDetails", { state: { travelName: e?.target?.innerText } });
+    navigate("/listDetails", { state: { travelName: e.target?.innerText } });
   };
 
   const handleChangeTravelNameInput = (
@@ -44,7 +44,7 @@ export default function List() {
   };
 
   const handleAddTravel = async () => {
-    const addedTravel = await travelRepository.create(travelNameInput);
+    await travelRepository.create(travelNameInput);
     fetchTravelList();
     // console.log(addedTravel);
   };

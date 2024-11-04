@@ -7,3 +7,9 @@ export interface InitialUserState {
     // displayName: string;
   };
 }
+
+export interface InitialPersonState {
+  person_id: number | null;
+  person_name: string | null;
+  created_at: string | null;
+}

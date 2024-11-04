@@ -1,0 +1,50 @@
+.list-details-container {
+  background-image: url("./home-image.jpg");
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  color: white;
+
+  .list-detail-content {
+    display: flex;
+    .list-detail-person-container {
+      .list-detail-person-button {
+        margin-left: 5px;
+      }
+      .person-list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        position: absolute;
+        top: 50%;
+        left: 53%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  .list-details-body-container {
+    display: flex;
+    position: relative;
+    width: 50%;
+    .list-details-form {
+      display: flex;
+      flex-direction: column;
+      padding-left: 40px;
+      gap: 5px;
+    }
+    .add-list-details-button {
+      //   padding-top: 92px;
+      padding-left: 5px;
+    }
+  }
+  .travel-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(-50%, -50%);
+  }
+}

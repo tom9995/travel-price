@@ -21,9 +21,8 @@
     width: 100px;
   }
   .header-title {
-    // font-size: large;
     font-size: 50px;
-    //   font-weight: bold;
+    padding-left: 10px;
   }
   .sign-out-button {
     display: flex;
@@ -32,5 +31,10 @@
     margin-right: 10px;
     padding-top: 10px;
     font-size: 30px;
+    height: 30px;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
   }
 }
