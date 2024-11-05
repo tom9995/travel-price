@@ -1,23 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { InitialPersonState } from "../../Types";
 
-const initialState: InitialPersonState = {
-  person_id: null,
-  person_name: null,
-  created_at: null,
+interface PersonState {
+  person: InitialPersonState[];
+}
+
+const initialState: PersonState = {
+  person: [],
 };
 
 export const personSlice = createSlice({
   name: "person",
   initialState,
   reducers: {
-    getAll: (state, action) => {
-      state.person_id = action.payload.person_id;
-      state.person_name = action.payload.person_name;
-      state.created_at = action.payload.created_at;
+    add: (state, action) => {
+      const { person_id, person_name, created_at } = action.payload;
+      state.person.push({ person_id, person_name, created_at });
+    },
+    delete: (state, action) => {
+      const { person_id } = action.payload;
+      state.person = state.person.filter((s) => s.person_id != person_id);
     },
   },
 });
 
-export const { getAll } = personSlice.actions;
+export const { add } = personSlice.actions;
 export default personSlice.reducer;
