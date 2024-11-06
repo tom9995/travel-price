@@ -19,17 +19,19 @@ export default function ListDetailPrice() {
   const [inputPerson, setInputPerson] = useState<string>("");
   const [personList, setPerson] = useState<Person[]>();
 
-  //   const people = useAppSelector((state) => state.person.person_id)
+  const members = useAppSelector((state) => state.person.person);
 
   useEffect(() => {
     fetchPerson();
-  }, []);
+  }, [members]);
 
   const fetchPerson = async () => {
     const personList = await personRepository.getAllPerson();
+    // const personList = members as Person[];
     personList.push({
       person_id: personList.length + 1,
       person_name: "",
+      created_at: "",
     });
     setPerson(personList);
     // console.log(person);

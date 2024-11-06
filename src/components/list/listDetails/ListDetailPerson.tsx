@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { personRepository } from "../../../repositories/person";
 import "./ListDetails.scss";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { add } from "../../../features/PersonSlice";
+import { add, init } from "../../../features/PersonSlice";
 import { InitialPersonState } from "../../../../Types";
 
 export default function ListDetailPerson() {
@@ -19,11 +19,7 @@ export default function ListDetailPerson() {
 
   const fetchPerson = async () => {
     const personDb = await personRepository.getAllPerson();
-    // setMemberDb(personDb);
-    personDb.map((m) => {
-      const { person_id, person_name, created_at } = m;
-      dispatch(add({ person_id, person_name, created_at }));
-    });
+    dispatch(init(personDb));
   };
 
   const handleChangePerson = (e: React.ChangeEvent<HTMLInputElement>) => {
