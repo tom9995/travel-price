@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./ListDetails.scss";
-import { useLocation } from "react-router-dom";
-import ListHeader from "../ListHeader";
 import { priceRepository } from "../../../repositories/price";
 import { personRepository } from "../../../repositories/person";
 import { useAppSelector } from "../../../app/hooks";
@@ -48,16 +46,38 @@ export default function ListDetailPrice() {
   };
 
   const handlePersonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // console.log(e.target.value);
+    // console.log(selectedPerson && selectedPerson[0].person_id);
+    // console.log(selectedPersonId);
+    // setInputPerson(selectedPersonId);
     setInputPerson(e.target.value);
+    // console.log(inputPerson);
   };
 
   const addPrice = async () => {
-    await priceRepository.create(inputPrice, inputTitle, inputMemo, 1);
-    setInputPrice("");
-    setInputTitle("");
-    setInputMemo("");
-    setInputPerson("");
+    if (
+      inputPrice == "" ||
+      inputTitle == "" ||
+      inputMemo == "" ||
+      inputPerson == ""
+    ) {
+      window.alert("項目が入力されていません");
+    } else {
+      const selectedPerson: Person[] | undefined = personList?.filter(
+        (person) => person.person_name == inputPerson
+      );
+      const selectedPersonId = selectedPerson && selectedPerson[0].person_id;
+
+      await priceRepository.create(
+        inputPrice,
+        inputTitle,
+        inputMemo,
+        selectedPersonId as number
+      );
+      setInputPrice("");
+      setInputTitle("");
+      setInputMemo("");
+      setInputPerson("");
+    }
   };
 
   return (

@@ -47,6 +47,7 @@ export default function List() {
     await travelRepository.create(travelNameInput);
     fetchTravelList();
     // console.log(addedTravel);
+    setTravelNameInput("");
   };
 
   return (
@@ -57,7 +58,7 @@ export default function List() {
           <input
             className="list-form-input"
             type="text"
-            placeholder="name"
+            placeholder="旅名"
             value={travelNameInput}
             onChange={(e) => handleChangeTravelNameInput(e)}
           ></input>

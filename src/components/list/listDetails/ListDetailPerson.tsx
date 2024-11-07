@@ -27,11 +27,15 @@ export default function ListDetailPerson() {
   };
 
   const handleAddPerson = async () => {
-    const { person_id, person_name, created_at } =
-      await personRepository.create(inputPerson);
-    // console.log(addedPerson);
-    dispatch(add({ person_id, person_name, created_at }));
-    // setInputPerson("");
+    if (inputPerson == "") {
+      window.alert("項目が入力されていません");
+    } else {
+      const { person_id, person_name, created_at } =
+        await personRepository.create(inputPerson);
+      // console.log(addedPerson);
+      dispatch(add({ person_id, person_name, created_at }));
+      // setInputPerson("");
+    }
   };
 
   return (
