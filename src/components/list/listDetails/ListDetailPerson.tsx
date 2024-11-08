@@ -3,7 +3,6 @@ import { personRepository } from "../../../repositories/person";
 import "./ListDetails.scss";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { add, init } from "../../../features/PersonSlice";
-import { InitialPersonState } from "../../../../Types";
 
 export default function ListDetailPerson() {
   const dispatch = useAppDispatch();

@@ -60,7 +60,7 @@ export default function Top() {
           onChange={(e) => handleEmailChange(e)}
         ></input>
         <input
-          type="text"
+          type="password"
           placeholder="password"
           value={password}
           onChange={(e) => handlePasswordChange(e)}
