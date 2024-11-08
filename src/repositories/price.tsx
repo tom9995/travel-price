@@ -19,29 +19,46 @@ export const priceRepository = {
     }
     return data[0];
   },
+  async getAllPrice() {
+    const { data, error } = await supabase
+      .from("price")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error != null) {
+      throw new Error(error.message);
+    }
+    return data.map((price) => {
+      return {
+        ...price,
+      };
+    });
+  },
+  async getAllPriceAndPerson() {
+    const { data, error } = await supabase
+      .from("price")
+      .select("*,person(*)")
+      .order("person(created_at)", { ascending: true });
+
+    if (error != null) {
+      throw new Error(error.message);
+    }
+    return data.map((price) => {
+      return {
+        ...price,
+      };
+    });
+  },
+  async updateIsPaid(priceId: string, isPaid: boolean) {
+    const { data, error } = await supabase
+      .from("price")
+      .update({
+        is_paid: isPaid,
+      })
+      .match({ price_id: priceId });
+
+    if (error != null) {
+      throw new Error(error.message);
+    }
+  },
 };
-
-//   async getAllTravel() {
-//     const { data, error } = await supabase
-//       .from("travel")
-//       .select("*")
-//       .order("created_at", { ascending: false });
-
-//     if (error != null) {
-//       throw new Error(error.message);
-//     }
-//     return data.map((travel) => {
-//       return {
-//         ...travel,
-//       };
-//     });
-//   },
-
-//   async delete(id: number) {
-//     const { error } = await supabase.from("travel").delete().eq("id", id);
-//     if (error != null) {
-//       throw new Error(error.message);
-//     }
-//     return true;
-//   },
-// };

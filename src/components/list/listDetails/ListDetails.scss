@@ -39,6 +39,7 @@
     }
   }
   .travel-detail-container {
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -46,5 +47,11 @@
     top: 50%;
     left: 5%;
     transform: translate(-50%, -50%);
+    .price-list-check-label {
+      display: block;
+    }
+    .price-list-checkbox {
+      margin-left: 5px;
+    }
   }
 }

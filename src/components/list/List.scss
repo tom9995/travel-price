@@ -24,7 +24,7 @@
     font-size: 50px;
     padding-left: 10px;
   }
-  .sign-out-button {
+  .header-left {
     display: flex;
     margin-left: auto;
     gap: 10px;
@@ -32,9 +32,15 @@
     padding-top: 10px;
     font-size: 30px;
     height: 30px;
-    &:hover {
-      background-color: white;
-      color: black;
+    .header-user-email {
+      padding-top: 10px;
+      font-size: medium;
+    }
+    .sign-out-button {
+      &:hover {
+        background-color: white;
+        color: black;
+      }
     }
   }
 }

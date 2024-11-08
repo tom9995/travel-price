@@ -15,7 +15,7 @@ export default function ListDetailPrice() {
   const [inputTitle, setInputTitle] = useState<string>("");
   const [inputMemo, setInputMemo] = useState<string>("");
   const [inputPerson, setInputPerson] = useState<string>("");
-  const [personList, setPerson] = useState<Person[]>();
+  const [personList, setPerson] = useState<Person[]>([]);
 
   const members = useAppSelector((state) => state.person.person);
 
@@ -62,16 +62,17 @@ export default function ListDetailPrice() {
     ) {
       window.alert("項目が入力されていません");
     } else {
-      const selectedPerson: Person[] | undefined = personList?.filter(
+      const selectedPerson: Person[] = personList?.filter(
         (person) => person.person_name == inputPerson
       );
-      const selectedPersonId = selectedPerson && selectedPerson[0].person_id;
+      //   const selectedPersonId = selectedPerson && selectedPerson[0].person_id;
+      const selectedPersonId = selectedPerson[0].person_id;
 
       await priceRepository.create(
         inputPrice,
         inputTitle,
         inputMemo,
-        selectedPersonId as number
+        selectedPersonId
       );
       setInputPrice("");
       setInputTitle("");
