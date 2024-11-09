@@ -14,11 +14,21 @@ export const personRepository = {
     }
     return data[0];
   },
-
-  async getAllPerson() {
+  async creatParticipants(travelId: number, personId: number) {
+    const { error } = await supabase
+      .from("participants")
+      .insert({ travel_id: travelId, person_id: personId });
+    if (error != null) {
+      throw new Error(error.message);
+    }
+    //   return data[0];
+  },
+  async getAllPerson(travelId: number) {
+    // console.log(travelId);
     const { data, error } = await supabase
       .from("person")
-      .select("*")
+      .select("*,participants!inner(travel_id)")
+      .eq("participants.travel_id", travelId)
       .order("created_at", { ascending: true });
 
     if (error != null) {

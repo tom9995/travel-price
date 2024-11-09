@@ -17,7 +17,7 @@ export default function Top() {
   const handleLogin = async () => {
     // ログイン
     const signInUser = await authRepository.signin(email, password);
-    console.log(signInUser);
+    // console.log(signInUser);
     // stateの更新
     setEmail("");
     setPassword("");

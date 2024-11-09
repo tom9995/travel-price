@@ -33,8 +33,10 @@ export default function List() {
   };
 
   const handleListClick = (e: any) => {
-    // console.log(e.target.innerText);
-    navigate("/listDetails", { state: { travelName: e.target?.innerText } });
+    // console.log(e);
+    navigate("/listDetails", {
+      state: { travelId: e.target.value, travelName: e.target?.innerText },
+    });
   };
 
   const handleChangeTravelNameInput = (
@@ -69,7 +71,11 @@ export default function List() {
         <div className="travel-list-container">
           <ul>
             {travelList.map((travel) => (
-              <li onClick={(e) => handleListClick(e)}>
+              <li
+                key={travel.travel_id}
+                value={travel.travel_id}
+                onClick={(e) => handleListClick(e)}
+              >
                 {travel?.travel_name}{" "}
               </li>
             ))}

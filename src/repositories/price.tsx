@@ -19,10 +19,19 @@ export const priceRepository = {
     }
     return data[0];
   },
-  async getAllPrice() {
+  async getAllPrice(travelId: number) {
+    const perosnList = await supabase
+      .from("participants")
+      .select("*")
+      .eq("travel_id", travelId);
+    // console.log(perosnList.data);
+    const perosnIds = perosnList.data?.map((person) => person.person_id);
+    // console.log(perosnIds);
+
     const { data, error } = await supabase
       .from("price")
       .select("*")
+      .in("person_id", perosnIds ?? [])
       .order("created_at", { ascending: false });
 
     if (error != null) {
@@ -34,10 +43,18 @@ export const priceRepository = {
       };
     });
   },
-  async getAllPriceAndPerson() {
+  async getAllPriceAndPerson(travelId: number) {
+    const perosnList = await supabase
+      .from("participants")
+      .select("*")
+      .eq("travel_id", travelId);
+    const perosnIds = perosnList.data?.map((person) => person.person_id);
+
     const { data, error } = await supabase
       .from("price")
-      .select("*,person(*)")
+      .select("*,person!inner(*,participants!inner(*))")
+      .eq("person.participants.travel_id", travelId)
+      .in("person.participants.person_id", perosnIds ?? [])
       .order("person(created_at)", { ascending: true })
       .order("price_id");
 

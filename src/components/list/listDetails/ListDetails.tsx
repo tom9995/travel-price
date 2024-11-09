@@ -32,14 +32,14 @@ export default function ListDetails() {
   const signInUser = useAppSelector((state) => state.user.user);
   const prices = useAppSelector((state) => state.price.price);
   const location = useLocation();
-  const { travelName } = location.state ?? "詳細";
+  const { travelId, travelName } = location.state ?? "詳細";
   const navigate = useNavigate();
 
   // const [priceList, setPriceList] = useState<Price[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [personList, setPersonList] = useState<Person[]>([]);
   const [inputPerson, setInputPerson] = useState<string>("");
-  const [pricePerPerson, setPricePerPerson] = useState<number>();
+  const [pricePerPerson, setPricePerPerson] = useState<number>(0);
   const [priceAndPersonList, setPriceAndPersonList] = useState<any[]>([]);
   // const [isChecked, setIsChecked] = useState<boolean>(false);
   const [nonPaidPrice, setnonPaidPrice] = useState(0);
@@ -64,7 +64,7 @@ export default function ListDetails() {
   }, [prices]);
 
   const fetchPrice = async () => {
-    const priceListDb = await priceRepository.getAllPrice();
+    const priceListDb = await priceRepository.getAllPrice(travelId);
     // console.log(priceListDb);
     // setPriceList(priceListDb);
     var resutlPrice: number = 0;
@@ -74,7 +74,7 @@ export default function ListDetails() {
   };
 
   const fetchPerson = async () => {
-    const personListDb = await personRepository.getAllPerson();
+    const personListDb = await personRepository.getAllPerson(travelId);
     setPersonList(personListDb);
     setInputPerson(personListDb[0].person_name);
   };
@@ -82,9 +82,11 @@ export default function ListDetails() {
   const fetchPriceAndPerson = async () => {
     perPerson = 0;
     noPaiedPrice = 0;
-    const priceAndPersonList = await priceRepository.getAllPriceAndPerson();
+    const priceAndPersonList = await priceRepository.getAllPriceAndPerson(
+      travelId
+    );
     setPriceAndPersonList(priceAndPersonList);
-    console.log(inputPerson);
+    // console.log(inputPerson);
     const p = inputPerson
       ? inputPerson
       : priceAndPersonList[0].person.person_name;
@@ -155,8 +157,8 @@ export default function ListDetails() {
         <ListHeader name={travelName} />
       </div>
       <div className="list-detail-content">
-        <ListDetailPrice />
-        <ListDetailPerson />
+        <ListDetailPrice travelId={travelId} />
+        <ListDetailPerson travelId={travelId} />
       </div>
       {/* コンポーネント分割 */}
       <div className="travel-detail-container">
@@ -167,7 +169,7 @@ export default function ListDetails() {
             value={inputPerson}
           >
             {personList?.map((p) => {
-              return <option>{p.person_name}</option>;
+              return <option key={p.person_id}>{p.person_name}</option>;
             })}
           </select>
           の総費用:{pricePerPerson}
@@ -185,7 +187,10 @@ export default function ListDetails() {
               {priceAndPersonList.map((price) =>
                 price.is_paid ? (
                   <s>
-                    <label className="price-list-check-label">
+                    <label
+                      key={price.price_id}
+                      className="price-list-check-label"
+                    >
                       <input
                         className="price-list-checkbox"
                         type="checkbox"

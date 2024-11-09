@@ -11,7 +11,11 @@ type Person = {
   created_at: string;
 };
 
-export default function ListDetailPrice() {
+type Props = {
+  travelId: number;
+};
+
+export default function ListDetailPrice(props: Props) {
   const [inputPrice, setInputPrice] = useState<string>("");
   const [inputTitle, setInputTitle] = useState<string>("");
   const [inputMemo, setInputMemo] = useState<string>("");
@@ -27,7 +31,7 @@ export default function ListDetailPrice() {
   }, [members, prices]);
 
   const fetchPerson = async () => {
-    const personList = await personRepository.getAllPerson();
+    const personList = await personRepository.getAllPerson(props.travelId);
     // const personList = members as Person[];
     personList.push({
       person_id: personList.length + 1,
@@ -100,16 +104,16 @@ export default function ListDetailPrice() {
     <div className="list-details-body-container">
       <div className="list-details-form">
         <input
-          type="number"
-          placeholder="金額"
-          value={inputPrice}
-          onChange={(e) => handleInputPrice(e)}
-        ></input>
-        <input
           type="text"
           placeholder="タイトル"
           value={inputTitle}
           onChange={(e) => handleInputTitle(e)}
+        ></input>
+        <input
+          type="number"
+          placeholder="金額"
+          value={inputPrice}
+          onChange={(e) => handleInputPrice(e)}
         ></input>
         <input
           type="text"
@@ -119,7 +123,7 @@ export default function ListDetailPrice() {
         ></input>
         <select onChange={(e) => handlePersonChange(e)} value={inputPerson}>
           {personList?.map((p) => {
-            return <option>{p.person_name}</option>;
+            return <option key={p.person_id}>{p.person_name}</option>;
           })}
         </select>
       </div>

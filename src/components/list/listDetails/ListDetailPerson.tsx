@@ -4,7 +4,11 @@ import "./ListDetails.scss";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { add, init } from "../../../features/PersonSlice";
 
-export default function ListDetailPerson() {
+type Prosp = {
+  travelId: number;
+};
+
+export default function ListDetailPerson(props: Prosp) {
   const dispatch = useAppDispatch();
 
   const [inputPerson, setInputPerson] = useState<string>("");
@@ -17,7 +21,7 @@ export default function ListDetailPerson() {
   }, []);
 
   const fetchPerson = async () => {
-    const personDb = await personRepository.getAllPerson();
+    const personDb = await personRepository.getAllPerson(props.travelId);
     dispatch(init(personDb));
   };
 
@@ -31,6 +35,7 @@ export default function ListDetailPerson() {
     } else {
       const { person_id, person_name, created_at } =
         await personRepository.create(inputPerson);
+      await personRepository.creatParticipants(props.travelId, person_id);
       // console.log(addedPerson);
       dispatch(add({ person_id, person_name, created_at }));
       setInputPerson("");
