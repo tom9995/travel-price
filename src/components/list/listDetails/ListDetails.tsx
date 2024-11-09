@@ -2,13 +2,14 @@ import "./ListDetails.scss";
 import "../List.scss";
 
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import ListDetailPrice from "./ListDetailPrice";
 import ListDetailPerson from "./ListDetailPerson";
 import ListHeader from "../ListHeader";
 import { priceRepository } from "../../../repositories/price";
 import { personRepository } from "../../../repositories/person";
+import { initPrice, update } from "../../../features/PriceSlice";
 
 // type Price = {
 //   price_id: number;
@@ -26,7 +27,10 @@ type Person = {
 };
 
 export default function ListDetails() {
+  const dispatch = useAppDispatch();
+
   const signInUser = useAppSelector((state) => state.user.user);
+  const prices = useAppSelector((state) => state.price.price);
   const location = useLocation();
   const { travelName } = location.state ?? "詳細";
   const navigate = useNavigate();
@@ -54,6 +58,11 @@ export default function ListDetails() {
     fetchPriceAndPerson();
   }, []);
 
+  useEffect(() => {
+    // fetchPerson;
+    fetchPriceAndPerson();
+  }, [prices]);
+
   const fetchPrice = async () => {
     const priceListDb = await priceRepository.getAllPrice();
     // console.log(priceListDb);
@@ -61,6 +70,7 @@ export default function ListDetails() {
     var resutlPrice: number = 0;
     priceListDb.map((price) => (resutlPrice += price.price));
     setTotalPrice(resutlPrice);
+    dispatch(initPrice(priceListDb));
   };
 
   const fetchPerson = async () => {
@@ -74,11 +84,12 @@ export default function ListDetails() {
     noPaiedPrice = 0;
     const priceAndPersonList = await priceRepository.getAllPriceAndPerson();
     setPriceAndPersonList(priceAndPersonList);
+    console.log(inputPerson);
+    const p = inputPerson
+      ? inputPerson
+      : priceAndPersonList[0].person.person_name;
     priceAndPersonList.map((priceAndPerson) => {
-      if (
-        priceAndPerson.person.person_name ==
-        priceAndPersonList[0].person.person_name
-      ) {
+      if (priceAndPerson.person.person_name == p) {
         perPerson += priceAndPerson.price;
         if (!priceAndPerson.is_paid) {
           noPaiedPrice += priceAndPerson.price;
@@ -111,12 +122,32 @@ export default function ListDetails() {
   };
 
   const handleChengeCheck = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    perPerson = 0;
+    noPaiedPrice = 0;
     // console.log(e.target.value);
-    const flg = priceAndPersonList.filter((p) => p.price_id == e.target.value);
-    const conf = window.confirm("未払いに戻しますか？");
-    conf &&
-      (await priceRepository.updateIsPaid(e.target.value, !flg[0].is_paid));
+    const target = e.target.value;
+    const priceId = target.substring(0, target.indexOf(":"));
+    const personId = target.substring(target.indexOf(":") + 1);
+    // console.log(priceId);
+    // console.log(personId);
+
+    const flg = priceAndPersonList.filter((p) => p.price_id == priceId);
+    // const conf = window.confirm("変更しますか？");
+    const updatedPrice = await priceRepository.updateIsPaid(
+      priceId,
+      !flg[0].is_paid
+    );
+    const { price_id, is_paid } = updatedPrice[0];
     // setIsChecked((prev) => !prev);
+    dispatch(update({ price_id, is_paid }));
+    priceAndPersonList.map((priceAndPerson) => {
+      if (priceAndPerson.person.person_name == inputPerson) {
+        perPerson += priceAndPerson.price;
+        if (!priceAndPerson.is_paid) {
+          noPaiedPrice += priceAndPerson.price;
+        }
+      }
+    });
   };
   return (
     <div className="list-details-container">
@@ -149,17 +180,35 @@ export default function ListDetails() {
         <div className="price-list-container">
           <div className="price-list">
             費用一覧
-            {priceAndPersonList.map((price) =>
-              price.is_paid ? (
-                <s>
+            <details>
+              <summary>一覧</summary>
+              {priceAndPersonList.map((price) =>
+                price.is_paid ? (
+                  <s>
+                    <label className="price-list-check-label">
+                      <input
+                        className="price-list-checkbox"
+                        type="checkbox"
+                        onChange={(e) => handleChengeCheck(e)}
+                        value={price.price_id + ":" + price.person_id}
+                        checked={price.is_paid}
+                        // disabled={true}
+                      />
+                      {price.price +
+                        ":" +
+                        price.person.person_name +
+                        ":" +
+                        price.price_title}
+                    </label>
+                  </s>
+                ) : (
                   <label className="price-list-check-label">
                     <input
                       className="price-list-checkbox"
                       type="checkbox"
                       onChange={(e) => handleChengeCheck(e)}
-                      value={price.price_id}
+                      value={price.price_id + ":" + price.person_id}
                       checked={price.is_paid}
-                      // disabled={true}
                     />
                     {price.price +
                       ":" +
@@ -167,23 +216,9 @@ export default function ListDetails() {
                       ":" +
                       price.price_title}
                   </label>
-                </s>
-              ) : (
-                <label className="price-list-check-label">
-                  <input
-                    className="price-list-checkbox"
-                    type="checkbox"
-                    onChange={(e) => handleChengeCheck(e)}
-                    value={price.price_id}
-                  />
-                  {price.price +
-                    ":" +
-                    price.person.person_name +
-                    ":" +
-                    price.price_title}
-                </label>
-              )
-            )}
+                )
+              )}
+            </details>
           </div>
         </div>
       </div>

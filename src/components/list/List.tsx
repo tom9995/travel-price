@@ -66,11 +66,15 @@ export default function List() {
             追加
           </button>
         </div>
-        <ul>
-          {travelList.map((travel) => (
-            <li onClick={(e) => handleListClick(e)}>{travel?.travel_name} </li>
-          ))}
-        </ul>
+        <div className="travel-list-container">
+          <ul>
+            {travelList.map((travel) => (
+              <li onClick={(e) => handleListClick(e)}>
+                {travel?.travel_name}{" "}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

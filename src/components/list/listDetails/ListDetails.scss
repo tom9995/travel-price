@@ -12,13 +12,14 @@
         margin-left: 5px;
       }
       .person-list-container {
-        display: flex;
+        padding-top: 130px;
         flex-direction: column;
         gap: 5px;
         position: absolute;
-        top: 50%;
-        left: 53%;
-        transform: translate(-50%, -50%);
+        // margin-top: 50px;
+        // top: 50%;
+        // left: 53%;
+        // transform: translate(-50%, -50%);
       }
     }
   }
@@ -39,14 +40,17 @@
     }
   }
   .travel-detail-container {
-    margin-left: 20px;
+    margin-left: 50px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 50%;
+    // left: 5%;
+    // transform: translate(-50%, -50%);
+    width: fit-content;
+
     .price-list-check-label {
       display: block;
     }

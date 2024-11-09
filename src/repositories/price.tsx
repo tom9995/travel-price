@@ -38,7 +38,8 @@ export const priceRepository = {
     const { data, error } = await supabase
       .from("price")
       .select("*,person(*)")
-      .order("person(created_at)", { ascending: true });
+      .order("person(created_at)", { ascending: true })
+      .order("price_id");
 
     if (error != null) {
       throw new Error(error.message);
@@ -50,15 +51,21 @@ export const priceRepository = {
     });
   },
   async updateIsPaid(priceId: string, isPaid: boolean) {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("price")
       .update({
         is_paid: isPaid,
       })
-      .eq("price_id", priceId);
+      .eq("price_id", priceId)
+      .select();
 
     if (error != null) {
       throw new Error(error.message);
     }
+    return data.map((price) => {
+      return {
+        ...price,
+      };
+    });
   },
 };

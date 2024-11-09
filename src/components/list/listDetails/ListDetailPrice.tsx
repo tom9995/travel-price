@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./ListDetails.scss";
 import { priceRepository } from "../../../repositories/price";
 import { personRepository } from "../../../repositories/person";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { add } from "../../../features/PriceSlice";
 
 type Person = {
   person_id: number;
@@ -17,11 +18,13 @@ export default function ListDetailPrice() {
   const [inputPerson, setInputPerson] = useState<string>("");
   const [personList, setPerson] = useState<Person[]>([]);
 
+  const dispatch = useAppDispatch();
   const members = useAppSelector((state) => state.person.person);
+  const prices = useAppSelector((state) => state.price.price);
 
   useEffect(() => {
     fetchPerson();
-  }, [members]);
+  }, [members, prices]);
 
   const fetchPerson = async () => {
     const personList = await personRepository.getAllPerson();
@@ -63,11 +66,28 @@ export default function ListDetailPrice() {
       //   const selectedPersonId = selectedPerson && selectedPerson[0].person_id;
       const selectedPersonId = selectedPerson[0].person_id;
 
-      await priceRepository.create(
+      const {
+        price_id,
+        price,
+        price_title,
+        price_detail,
+        created_at,
+        is_paid,
+      } = await priceRepository.create(
         inputPrice,
         inputTitle,
         inputMemo,
         selectedPersonId
+      );
+      dispatch(
+        add({
+          price_id,
+          price,
+          price_title,
+          price_detail,
+          created_at,
+          is_paid,
+        })
       );
       setInputPrice("");
       setInputTitle("");

@@ -13,3 +13,12 @@ export interface InitialPersonState {
   person_name: string | null;
   created_at: string | null;
 }
+
+export interface InitialPriceState {
+  price_id: number | null;
+  price: number | null;
+  price_title: string | null;
+  price_detail: string | null;
+  created_at: string | null;
+  is_paid: boolean | null;
+}

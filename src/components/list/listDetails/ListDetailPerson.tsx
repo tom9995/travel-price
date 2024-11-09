@@ -33,7 +33,7 @@ export default function ListDetailPerson() {
         await personRepository.create(inputPerson);
       // console.log(addedPerson);
       dispatch(add({ person_id, person_name, created_at }));
-      // setInputPerson("");
+      setInputPerson("");
     }
   };
 
@@ -49,13 +49,16 @@ export default function ListDetailPerson() {
         登録
       </button>
       {/* コンポーネント分割 */}
-      <div className="person-list-container">
-        <ul>
-          {members.map((member: any) => (
-            <li key={member.person_id}>{member.person_name}</li>
-          ))}
-        </ul>
-      </div>
+      <details className="person-list-container">
+        <summary>メンバー</summary>
+        <div>
+          <ul>
+            {members.map((member: any) => (
+              <li key={member.person_id}>{member.person_name}</li>
+            ))}
+          </ul>
+        </div>
+      </details>
     </div>
   );
 }

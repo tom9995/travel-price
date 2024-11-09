@@ -6,10 +6,14 @@
   color: white;
 
   .list-body-container {
+    padding-left: 30px;
     .list-form-container {
       gap: 5px;
       display: flex;
       padding-left: 10px;
+    }
+    .travel-list-container {
+      margin-top: 10px;
     }
   }
 }
