@@ -35,9 +35,24 @@ export const priceSlice = createSlice({
       });
     },
     update: (state, action) => {
-      const { price_id, is_paid } = action.payload;
+      const {
+        price_id,
+        price,
+        price_title,
+        price_detail,
+        person_id,
+        is_paid,
+        is_deleted,
+      } = action.payload;
       state.price.map((p) => {
-        if (p.price_id == price_id) p.is_paid = is_paid;
+        if (p.price_id == price_id) {
+          (p.price = price),
+            (p.price_title = price_title),
+            (p.price_detail = price_detail),
+            (p.person_id = person_id),
+            (p.is_deleted = is_deleted);
+          p.is_paid = is_paid;
+        }
       });
     },
   },

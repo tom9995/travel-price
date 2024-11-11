@@ -1,15 +1,120 @@
 .list-details-container {
-  background-image: url("./home-image.jpg");
+  // background-image: url("./home-image.jpg");
+  background-color: #f0f0f0;
   height: 100vh;
   width: 100%;
   background-size: cover;
-  color: white;
+  // color: white;
 
   .list-detail-content {
     display: flex;
+    .list-details-body-container {
+      width: 30%;
+      height: fit-content;
+      margin-top: 10px;
+      // margin-left: 30px;
+      padding-bottom: 50px;
+      // padding-top: 50px;
+      // background-color: #d27a20;
+      // border-radius: 9999px;
+      display: flex;
+      // position: relative;
+      // width: 50%;
+      .list-details-form {
+        display: flex;
+        flex-direction: column;
+        padding-left: 70px;
+        gap: 5px;
+        .input-title-container {
+          padding: 10px 25px 10px 10px;
+          background-color: #d27a20;
+          border-radius: 9999px;
+          .list-input-title {
+            padding-left: 10px;
+          }
+          .input-title {
+            padding-left: 20px;
+          }
+        }
+        .input-price-container {
+          background-color: #d27a20;
+          border-radius: 9999px;
+          padding: 10px 25px 10px 10px;
+          .list-input-price {
+            padding-left: 10px;
+          }
+          .input-price {
+            padding-left: 20px;
+          }
+        }
+        .input-memo-container {
+          background-color: #d27a20;
+          border-radius: 9999px;
+          padding: 10px 25px 10px 10px;
+          .list-input-memo {
+            padding-left: 10px;
+          }
+          .input-memo {
+            padding-left: 20px;
+          }
+        }
+        .input-person-container {
+          background-color: #d27a20;
+          border-radius: 9999px;
+          padding: 10px 25px 10px 10px;
+          .list-input-person {
+            padding-left: 10px;
+          }
+          .input-person {
+            margin-left: 20px;
+            width: 200px;
+          }
+        }
+      }
+      .add-list-details-button {
+        //   padding-top: 92px;
+        padding-left: 5px;
+        height: fit-content;
+        margin-top: 300px;
+        border-radius: 9999px;
+        .add-button {
+          color: #f0f0f0;
+          background-color: black;
+          border-radius: 9999px;
+          // font-size: 20px;
+          &:hover {
+            background-color: #f0f0f0;
+            color: black;
+          }
+        }
+      }
+    }
     .list-detail-person-container {
-      .list-detail-person-button {
+      margin-top: 10px;
+      background-color: #d27a20;
+      height: fit-content;
+      border-radius: 9999px;
+      padding: 10px 25px 10px 10px;
+      .person-input-container {
+        display: flex;
+        padding-left: 10px;
         margin-left: 5px;
+        gap: 5px;
+      }
+      // .person-input {
+      //   border-radius: 9999px;
+      // }
+      .list-detail-person-button {
+        // font-size: 20px;
+        // margin-left: 5px;
+        color: #f0f0f0;
+        background-color: black;
+        border-radius: 9999px;
+        &:hover {
+          background-color: #f0f0f0;
+          color: black;
+          border-color: black;
+        }
       }
       .person-list-container {
         padding-top: 130px;
@@ -20,25 +125,41 @@
         // top: 50%;
         // left: 53%;
         // transform: translate(-50%, -50%);
+        .member-list-container {
+          display: flex;
+          gap: 10px;
+          .member-name {
+            padding-top: 5px;
+          }
+          .member-edit-button {
+            font-size: small;
+            color: #f0f0f0;
+            background-color: black;
+            border-radius: 9999px;
+            &:hover {
+              background-color: #f0f0f0;
+              color: black;
+              border-color: black;
+            }
+          }
+        }
+        .update-list-container {
+          .person-list-edit-button,
+          .person-list-delete-button {
+            color: #f0f0f0;
+            background-color: black;
+            border-radius: 9999px;
+            &:hover {
+              background-color: #f0f0f0;
+              color: black;
+              border-color: black;
+            }
+          }
+        }
       }
     }
   }
 
-  .list-details-body-container {
-    display: flex;
-    position: relative;
-    width: 50%;
-    .list-details-form {
-      display: flex;
-      flex-direction: column;
-      padding-left: 40px;
-      gap: 5px;
-    }
-    .add-list-details-button {
-      //   padding-top: 92px;
-      padding-left: 5px;
-    }
-  }
   .travel-detail-container {
     margin-left: 50px;
     margin-top: 50px;
@@ -51,11 +172,37 @@
     // transform: translate(-50%, -50%);
     width: fit-content;
 
+    .price-list-edit-button,
+    .price-list-delete-button {
+      margin-left: 5px;
+      margin-right: 2px;
+      color: #f0f0f0;
+      background-color: black;
+      border-radius: 9999px;
+      &:hover {
+        background-color: #f0f0f0;
+        color: black;
+        border-color: black;
+      }
+    }
+    .person-select-item {
+      height: 30px;
+      width: 500px;
+    }
+
     .price-list-check-label {
       display: block;
+      .price-list-check-button {
+        font-size: small;
+        margin-left: 10px;
+      }
     }
     .price-list-checkbox {
       margin-left: 5px;
     }
+  }
+  .person-list-edit-button {
+    margin-left: 5px;
+    margin-right: 2px;
   }
 }

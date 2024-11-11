@@ -23,7 +23,8 @@ export const priceRepository = {
     const perosnList = await supabase
       .from("participants")
       .select("*")
-      .eq("travel_id", travelId);
+      .eq("travel_id", travelId)
+      .eq("is_deleted", false);
     // console.log(perosnList.data);
     const perosnIds = perosnList.data?.map((person) => person.person_id);
     // console.log(perosnIds);
@@ -32,6 +33,7 @@ export const priceRepository = {
       .from("price")
       .select("*")
       .in("person_id", perosnIds ?? [])
+      .eq("is_deleted", false)
       .order("created_at", { ascending: false });
 
     if (error != null) {
@@ -47,13 +49,15 @@ export const priceRepository = {
     const perosnList = await supabase
       .from("participants")
       .select("*")
-      .eq("travel_id", travelId);
+      .eq("travel_id", travelId)
+      .eq("is_deleted", false);
     const perosnIds = perosnList.data?.map((person) => person.person_id);
 
     const { data, error } = await supabase
       .from("price")
       .select("*,person!inner(*,participants!inner(*))")
       .eq("person.participants.travel_id", travelId)
+      .eq("is_deleted", false)
       .in("person.participants.person_id", perosnIds ?? [])
       .order("person(created_at)", { ascending: true })
       .order("price_id");
@@ -84,5 +88,26 @@ export const priceRepository = {
         ...price,
       };
     });
+  },
+  async updatePriceAndPerson(
+    price_id: number,
+    is_deleted?: boolean,
+    price?: string,
+    price_title?: string,
+    person_id?: string
+  ) {
+    const { error } = await supabase
+      .from("price")
+      .update({
+        price,
+        price_title,
+        person_id,
+        is_deleted,
+      })
+      .eq("price_id", price_id)
+      .select();
+    if (error != null) {
+      throw new Error(error.message);
+    }
   },
 };

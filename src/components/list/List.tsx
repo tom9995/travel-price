@@ -4,6 +4,7 @@ import { useAppSelector } from "../../app/hooks";
 import "./List.scss";
 import ListHeader from "./ListHeader";
 import { travelRepository } from "../../repositories/travel";
+import { Button, TextField } from "@mui/material";
 
 type Travel = {
   travel_id: number;
@@ -40,7 +41,7 @@ export default function List() {
   };
 
   const handleChangeTravelNameInput = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setTravelNameInput(e.target.value);
   };
@@ -57,16 +58,31 @@ export default function List() {
       <ListHeader name="一覧" />
       <div className="list-body-container">
         <div className="list-form-container">
-          <input
+          <div className="travel-name-container">
+            <div className="list-from-travel-name">旅名</div>
+            <TextField
+              variant="standard"
+              className="list-form-input"
+              type="text"
+              placeholder="Enter travel name"
+              value={travelNameInput}
+              onChange={(e) => handleChangeTravelNameInput(e)}
+            />
+
+            <Button className="list-form-button" onClick={handleAddTravel}>
+              追加
+            </Button>
+          </div>
+          {/* <input
             className="list-form-input"
             type="text"
             placeholder="旅名"
             value={travelNameInput}
             onChange={(e) => handleChangeTravelNameInput(e)}
-          ></input>
-          <button className="list-form-button" onClick={handleAddTravel}>
+          ></input> */}
+          {/* <button className="list-form-button" onClick={handleAddTravel}>
             追加
-          </button>
+          </button> */}
         </div>
         <div className="travel-list-container">
           <ul>
@@ -75,6 +91,7 @@ export default function List() {
                 key={travel.travel_id}
                 value={travel.travel_id}
                 onClick={(e) => handleListClick(e)}
+                className="travel-list-content"
               >
                 {travel?.travel_name}{" "}
               </li>

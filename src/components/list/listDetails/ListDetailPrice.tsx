@@ -4,6 +4,7 @@ import { priceRepository } from "../../../repositories/price";
 import { personRepository } from "../../../repositories/person";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { add } from "../../../features/PriceSlice";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 
 type Person = {
   person_id: number;
@@ -42,13 +43,19 @@ export default function ListDetailPrice(props: Props) {
     // console.log(person);
   };
 
-  const handleInputPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputPrice = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setInputPrice(e.target.value);
   };
-  const handleInputMemo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputMemo = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setInputMemo(e.target.value);
   };
-  const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputTitle = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setInputTitle(e.target.value);
   };
 
@@ -103,32 +110,81 @@ export default function ListDetailPrice(props: Props) {
   return (
     <div className="list-details-body-container">
       <div className="list-details-form">
-        <input
+        <div className="input-title-container">
+          <div className="list-input-title">タイトル</div>
+          <TextField
+            className="input-title"
+            variant="standard"
+            type="text"
+            placeholder="タイトル"
+            value={inputTitle}
+            onChange={(e) => handleInputTitle(e)}
+          ></TextField>
+        </div>
+        {/* <input
           type="text"
           placeholder="タイトル"
           value={inputTitle}
           onChange={(e) => handleInputTitle(e)}
-        ></input>
-        <input
+        ></input> */}
+        <div className="input-price-container">
+          <div className="list-input-price">金額</div>
+          <TextField
+            className="input-price"
+            variant="standard"
+            type="number"
+            placeholder="金額"
+            value={inputPrice}
+            onChange={(e) => handleInputPrice(e)}
+          ></TextField>
+        </div>
+        {/* <input
           type="number"
           placeholder="金額"
           value={inputPrice}
           onChange={(e) => handleInputPrice(e)}
-        ></input>
-        <input
+        ></input> */}
+        <div className="input-memo-container">
+          <div className="list-input-memo">メモ</div>
+
+          <TextField
+            className="input-memo"
+            variant="standard"
+            placeholder="メモ"
+            value={inputMemo}
+            onChange={(e) => handleInputMemo(e)}
+          ></TextField>
+        </div>
+        {/* <input
           type="text"
           placeholder="メモ"
           value={inputMemo}
           onChange={(e) => handleInputMemo(e)}
-        ></input>
-        <select onChange={(e) => handlePersonChange(e)} value={inputPerson}>
-          {personList?.map((p) => {
-            return <option key={p.person_id}>{p.person_name}</option>;
-          })}
-        </select>
+        ></input> */}
+        <div className="input-person-container">
+          <div className="list-input-person">支払者</div>
+          {/* <Select className="input-person">
+            {personList?.map((p) => {
+              return <MenuItem key={p.person_id}>{p.person_name}</MenuItem>;
+              // <option key={p.person_id}>{p.person_name}</option>;
+            })}
+          </Select> */}
+          <select
+            onChange={(e) => handlePersonChange(e)}
+            value={inputPerson}
+            className="input-person"
+          >
+            {personList?.map((p) => {
+              return <option key={p.person_id}>{p.person_name}</option>;
+            })}
+          </select>
+        </div>
       </div>
       <div className="add-list-details-button">
-        <button onClick={addPrice}>登録</button>
+        <Button className="add-button" onClick={addPrice}>
+          登録
+        </Button>
+        {/* <button onClick={addPrice}>登録</button> */}
       </div>
     </div>
   );
