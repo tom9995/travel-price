@@ -10,7 +10,15 @@ import ListHeader from "../ListHeader";
 import { priceRepository } from "../../../repositories/price";
 import { personRepository } from "../../../repositories/person";
 import { initPrice, update } from "../../../features/PriceSlice";
-import { Button, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  // InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 
 type Person = {
   person_id: number;
@@ -98,9 +106,7 @@ export default function ListDetails() {
     setnonPaidPrice(noPaiedPrice);
   };
 
-  const handleChangeselectPerson = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChangeselectPerson = (e: SelectChangeEvent<string>) => {
     setInputPerson(e.target.value);
     perPerson = 0;
     noPaiedPrice = 0;
@@ -121,7 +127,7 @@ export default function ListDetails() {
     noPaiedPrice = 0;
     const target = e.target.value;
     const priceId = target.substring(0, target.indexOf(":"));
-    const personId = target.substring(target.indexOf(":") + 1);
+    // const personId = target.substring(target.indexOf(":") + 1);
 
     const flg = priceAndPersonList.filter((p) => p.price_id == priceId);
     // const conf = window.confirm("変更しますか？");
@@ -141,9 +147,7 @@ export default function ListDetails() {
     });
   };
 
-  const handleEditButton = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleEditButton = (e: any) => {
     priceAndPersonList.map((p) => {
       if (p.price_id == e.target.value) {
         setEditPriceInput(p.price);
@@ -154,9 +158,7 @@ export default function ListDetails() {
     setEditPrice(e.target.value);
   };
 
-  const handleUpdatePrice = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleUpdatePrice = async (e: any) => {
     // console.log(e.target.value);
     const price_id = e.target.value;
     const price = editPriceInput;
@@ -187,16 +189,12 @@ export default function ListDetails() {
   ) => {
     setEditTitleInput(e.target.value);
   };
-  const handleChangeEditPersonInput = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChangeEditPersonInput = (e: SelectChangeEvent<string>) => {
     // console.log(e.target.value);
     setEditPersonInput(e.target.value);
   };
 
-  const handleDeletePrice = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleDeletePrice = async (e: any) => {
     const flg = window.confirm("削除しますか？");
     if (flg) {
       // console.log(e.target.value);
@@ -220,15 +218,22 @@ export default function ListDetails() {
       <div className="travel-detail-container">
         <div className="total-price-container">総費用:{totalPrice}</div>
         <div className="price-per-person-container">
-          <select
-            onChange={(e) => handleChangeselectPerson(e)}
-            value={inputPerson}
-          >
-            {personList?.map((p) => {
-              return <option key={p.person_id}>{p.person_name}</option>;
-            })}
-          </select>
-          の総費用:{pricePerPerson}
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              onChange={(e) => handleChangeselectPerson(e)}
+              value={inputPerson}
+            >
+              {personList?.map((p) => {
+                return (
+                  <MenuItem key={p.person_id} value={p.person_name}>
+                    {p.person_name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+
+          <div className="per-person-text">の総費用:{pricePerPerson}</div>
         </div>
         <div className="price-to-be-paid">
           {inputPerson}
@@ -237,9 +242,8 @@ export default function ListDetails() {
         </div>
         <div className="price-list-container">
           <div className="price-list">
-            費用一覧
-            <details>
-              <summary>一覧</summary>
+            <details className="price-list-detail">
+              <summary>費用一覧</summary>
               {priceAndPersonList.map((price) =>
                 price.price_id == editPrice ? (
                   <div className="price-list-edit">
@@ -249,39 +253,29 @@ export default function ListDetails() {
                       placeholder="金額"
                       value={editPriceInput}
                       onChange={(e) => handleChangeEditPriceInput(e)}
+                      className="price-list-edit-price"
                     ></TextField>
-                    {/* <input
-                      type="number"
-                      placeholder="金額"
-                      value={editPriceInput}
-                      onChange={(e) => handleChangeEditPriceInput(e)}
-                    ></input> */}
                     :
-                    {/* <Select
-                      onChange={(e) => handleChangeEditPersonInput(e)}
-                      value={editPersonInput}
-                      className="person-select-item"
+                    <FormControl
+                      variant="standard"
+                      sx={{ m: 1, minWidth: 120 }}
                     >
-                      {personList?.map((p) => {
-                        return (
-                          <MenuItem key={p.person_id} value={p.person_id}>
-                            {p.person_name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select> */}
-                    <select
-                      onChange={(e) => handleChangeEditPersonInput(e)}
-                      value={editPersonInput}
-                    >
-                      {personList?.map((p) => {
-                        return (
-                          <option key={p.person_id} value={p.person_id}>
-                            {p.person_name}
-                          </option>
-                        );
-                      })}
-                    </select>
+                      <Select
+                        onChange={(e) => handleChangeEditPersonInput(e)}
+                        value={editPersonInput}
+                        className="person-select-item"
+                        labelId="select-person-label"
+                        label="メンバー"
+                      >
+                        {personList?.map((p) => {
+                          return (
+                            <MenuItem key={p.person_id} value={p.person_name}>
+                              {p.person_name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
                     :
                     <TextField
                       variant="standard"
@@ -289,13 +283,8 @@ export default function ListDetails() {
                       placeholder="タイトル"
                       value={editTitleInput}
                       onChange={(e) => handleChangeEditTitleInput(e)}
+                      className="price-list-edit-title"
                     />
-                    {/* <input
-                      type="text"
-                      placeholder="タイトル"
-                      value={editTitleInput}
-                      onChange={(e) => handleChangeEditTitleInput(e)}
-                    ></input> */}
                     <Button
                       className="price-list-edit-button"
                       onClick={(e) => handleUpdatePrice(e)}
@@ -303,13 +292,6 @@ export default function ListDetails() {
                     >
                       更新
                     </Button>
-                    {/* <button
-                      className="price-list-edit-button"
-                      onClick={(e) => handleUpdatePrice(e)}
-                      value={price.price_id}
-                    >
-                      更新
-                    </button> */}
                     <Button
                       className="price-list-delete-button"
                       value={price.price_id}
@@ -317,13 +299,6 @@ export default function ListDetails() {
                     >
                       削除
                     </Button>
-                    {/* <button
-                      className="price-list-delete-button"
-                      value={price.price_id}
-                      onClick={(e) => handleDeletePrice(e)}
-                    >
-                      削除
-                    </button> */}
                   </div>
                 ) : price.is_paid ? (
                   <s>
@@ -337,7 +312,6 @@ export default function ListDetails() {
                         onChange={(e) => handleChengeCheck(e)}
                         value={price.price_id + ":" + price.person_id}
                         checked={price.is_paid}
-                        // disabled={true}
                       />
                       {price.price +
                         ":" +

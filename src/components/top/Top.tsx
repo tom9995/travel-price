@@ -1,7 +1,7 @@
 // import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Top.scss";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch } from "../../app/hooks";
 import { signIn } from "../../features/UserSlice";
 import { authRepository } from "../../repositories/auth";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ export default function Top() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const currentUser = useAppSelector((state) => state.user.user);
+  // const currentUser = useAppSelector((state) => state.user.user);
 
   const dispatch = useAppDispatch();
 

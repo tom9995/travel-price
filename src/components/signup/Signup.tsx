@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { authRepository } from "../../repositories/auth";
 import "./Signup.scss";
 import { useNavigate } from "react-router-dom";

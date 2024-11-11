@@ -3,7 +3,7 @@ import { authRepository } from "../../repositories/auth";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { signOut } from "../../features/UserSlice";
 import PersonIcon from "@mui/icons-material/Person";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 
 type Props = {
@@ -37,7 +37,7 @@ export default function ListHeader(props: Props) {
         alt="icon"
         onClick={reLoad}
       /> */}
-      <FlightTakeoffIcon className="header-icon" />
+      <FlightTakeoffIcon className="header-icon" onClick={reLoad} />
       <p className="header-title">{props.name}</p>
       <div className="header-left">
         <div className="header-user-email">

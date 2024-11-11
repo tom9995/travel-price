@@ -54,9 +54,7 @@ export default function ListDetailPerson(props: Prosp) {
     }
   };
 
-  const handleEditPerson = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleEditPerson = (e: any) => {
     personList.map((person) => {
       if (person.person_id == e.target.value) {
         setEditPersonInput(person.person_name);
@@ -83,7 +81,7 @@ export default function ListDetailPerson(props: Prosp) {
   const handleDeletePerson = async () => {
     const is_deleted = true;
     const person_id = editPerson;
-    const person_name = editPersonInput;
+    // const person_name = editPersonInput;
     await personRepository.updateParticipants(editPerson, is_deleted);
     dispatch(deletePerson({ person_id }));
 
@@ -92,12 +90,12 @@ export default function ListDetailPerson(props: Prosp) {
 
   return (
     <div className="list-detail-person-container">
-      <div className="person-input-text">人名</div>
+      <div className="person-input-text">メンバー入力フォーム</div>
       <div className="person-input-container">
         <TextField
           variant="standard"
           type="text"
-          placeholder="人名"
+          placeholder="名前"
           value={inputPerson}
           onChange={(e) => handleChangePerson(e)}
           className="person-input"
@@ -106,18 +104,9 @@ export default function ListDetailPerson(props: Prosp) {
           登録
         </Button>
       </div>
-      {/* <input
-        type="text"
-        placeholder="人名"
-        value={inputPerson}
-        onChange={(e) => handleChangePerson(e)}
-      /> */}
-      {/* <button className="list-detail-person-button" onClick={handleAddPerson}>
-        登録
-      </button> */}
-      {/* コンポーネント分割 */}
+
       <details className="person-list-container">
-        <summary>メンバー</summary>
+        <summary>メンバー一覧</summary>
         <div>
           <ul>
             {members.map((member: any) =>
@@ -129,30 +118,20 @@ export default function ListDetailPerson(props: Prosp) {
                     value={editPersonInput}
                     onChange={(e) => handleChangePesonInput(e)}
                   ></TextField>
-                  {/* <input
-                    type="input"
-                    value={editPersonInput}
-                    onChange={(e) => handleChangePesonInput(e)}
-                  ></input> */}
+
                   <Button
                     className="person-list-edit-button"
                     onClick={handleUpdatePerson}
                   >
                     更新
                   </Button>
-                  {/* <button
-                    className="person-list-edit-button"
-                    onClick={handleUpdatePerson}
-                  >
-                    更新
-                  </button> */}
+
                   <Button
                     className="person-list-delete-button"
                     onClick={handleDeletePerson}
                   >
                     削除
                   </Button>
-                  {/* <button onClick={handleDeletePerson}>削除</button> */}
                 </div>
               ) : (
                 <div className="member-list-container">
@@ -166,13 +145,6 @@ export default function ListDetailPerson(props: Prosp) {
                   >
                     編集
                   </Button>
-                  {/* <button
-                    className="member-edit-button"
-                    onClick={(e) => handleEditPerson(e)}
-                    value={member.person_id}
-                  >
-                    編集
-                  </button> */}
                 </div>
               )
             )}
