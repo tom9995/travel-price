@@ -19,7 +19,6 @@ export default function Top() {
   const handleLogin = async () => {
     // ログイン
     const signInUser = await authRepository.signin(email, password);
-    // console.log(signInUser);
     // stateの更新
     setEmail("");
     setPassword("");
@@ -30,7 +29,6 @@ export default function Top() {
           // password:signInUser.password,
         })
       );
-      // console.log("clicked");
       navigate("/list");
     } else {
       window.alert("ログインに失敗しました");
@@ -55,9 +53,6 @@ export default function Top() {
 
   return (
     <div className="top-container">
-      {/* <div className="image-container">
-        <img src="./icon.png" />
-      </div> */}
       <div className="top-header-container">
         <div className="icon-container">
           <FlightTakeoffIcon className="airplane-icon" />
@@ -72,16 +67,10 @@ export default function Top() {
               className="email-input"
               variant="standard"
               type="text"
-              placeholder="Enter your email"
+              placeholder="Enter your e-mail"
               value={email}
               onChange={(e) => handleEmailChange(e)}
             ></TextField>
-            {/* <input
-              type="text"
-              placeholder="email"
-              value={email}
-              onChange={(e) => handleEmailChange(e)}
-            ></input> */}
           </div>
           <div className="password-container">
             <div>password</div>
@@ -93,19 +82,10 @@ export default function Top() {
               value={password}
               onChange={(e) => handlePasswordChange(e)}
             ></TextField>
-            {/* <input
-              type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => handlePasswordChange(e)}
-            ></input> */}
           </div>
           <Button className="login-button" onClick={handleLogin}>
             ログイン
           </Button>
-          {/* <button className="login-button" onClick={handleLogin}>
-            ログイン
-          </button> */}
           <div className="signup-link-container" onClick={handleNavigateSignUp}>
             未登録の方はこちら
           </div>

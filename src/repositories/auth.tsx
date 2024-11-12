@@ -13,7 +13,6 @@ export const authRepository = {
       throw new Error(error.message);
     }
 
-    // if (error != null) throw new Error(error.message);
     return { ...data.user, userName: data.user?.user_metadata.name };
   },
 
@@ -25,13 +24,11 @@ export const authRepository = {
     if (error != null) {
       throw new Error(error.message);
     }
-    // if (error != null) throw new Error(error.message);
     return { ...data.user, userName: data.user?.user_metadata.name };
   },
 
   async getCurrentUser() {
     const { data, error } = await supabaseClient.auth.getSession();
-    // if (error != null) throw new Error(error.message);
     if (data.session == null) return;
     if (error != null) {
       throw new Error(error.message);
@@ -44,7 +41,6 @@ export const authRepository = {
 
   async signOut() {
     const { error } = await supabaseClient.auth.signOut();
-    // if (error != null) throw new Error(error.message);
     if (error != null) {
       throw new Error(error.message);
     }

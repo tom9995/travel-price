@@ -13,7 +13,6 @@ import { initPrice, update } from "../../../features/PriceSlice";
 import {
   Button,
   FormControl,
-  // InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -36,7 +35,6 @@ export default function ListDetails() {
   const { travelId, travelName } = location.state ?? "詳細";
   const navigate = useNavigate();
 
-  // const [priceList, setPriceList] = useState<Price[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [personList, setPersonList] = useState<Person[]>([]);
   const [inputPerson, setInputPerson] = useState<string>("");
@@ -63,13 +61,11 @@ export default function ListDetails() {
   }, []);
 
   useEffect(() => {
-    // fetchPerson;
     fetchPriceAndPerson();
   }, [prices, member]);
 
   const fetchPrice = async () => {
     const priceListDb = await priceRepository.getAllPrice(travelId);
-    // console.log(priceListDb);
     // setPriceList(priceListDb);
     var resutlPrice: number = 0;
     priceListDb.map((price) => (resutlPrice += price.price));
@@ -90,7 +86,6 @@ export default function ListDetails() {
       travelId
     );
     setPriceAndPersonList(priceAndPersonList);
-    // console.log(inputPerson);
     const p = inputPerson
       ? inputPerson
       : priceAndPersonList[0].person.person_name;
@@ -159,7 +154,6 @@ export default function ListDetails() {
   };
 
   const handleUpdatePrice = async (e: any) => {
-    // console.log(e.target.value);
     const price_id = e.target.value;
     const price = editPriceInput;
     const price_title = editTitleInput;
@@ -190,14 +184,12 @@ export default function ListDetails() {
     setEditTitleInput(e.target.value);
   };
   const handleChangeEditPersonInput = (e: SelectChangeEvent<string>) => {
-    // console.log(e.target.value);
     setEditPersonInput(e.target.value);
   };
 
   const handleDeletePrice = async (e: any) => {
     const flg = window.confirm("削除しますか？");
     if (flg) {
-      // console.log(e.target.value);
       const price_id = e.target.value;
       const is_deleted = true;
       await priceRepository.updatePriceAndPerson(price_id, is_deleted);

@@ -24,17 +24,14 @@ export default function List() {
     }
     // 過去の旅行すべて取得（ユーザーで絞っていない）
     fetchTravelList();
-    // console.log("fetched");
   }, []);
 
   const fetchTravelList = async () => {
     const newTravelList = await travelRepository.getAllTravel();
-    // console.log(newTravelList);
     setTravelList(newTravelList);
   };
 
   const handleListClick = (e: any) => {
-    // console.log(e);
     navigate("/listDetails", {
       state: { travelId: e.target.value, travelName: e.target?.innerText },
     });
@@ -49,7 +46,6 @@ export default function List() {
   const handleAddTravel = async () => {
     await travelRepository.create(travelNameInput);
     fetchTravelList();
-    // console.log(addedTravel);
     setTravelNameInput("");
   };
 

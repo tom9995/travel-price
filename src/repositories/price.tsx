@@ -25,9 +25,7 @@ export const priceRepository = {
       .select("*")
       .eq("travel_id", travelId)
       .eq("is_deleted", false);
-    // console.log(perosnList.data);
     const perosnIds = perosnList.data?.map((person) => person.person_id);
-    // console.log(perosnIds);
 
     const { data, error } = await supabase
       .from("price")

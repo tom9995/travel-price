@@ -21,10 +21,8 @@ export const personRepository = {
     if (error != null) {
       throw new Error(error.message);
     }
-    //   return data[0];
   },
   async getAllPerson(travelId: number) {
-    // console.log(travelId);
     const { data, error } = await supabase
       .from("person")
       .select("*,participants!inner(travel_id)")

@@ -48,7 +48,6 @@ export default function ListDetailPrice(props: Props) {
       created_at: "",
     });
     setPerson(personList);
-    // console.log(person);
   };
 
   const handleInputPrice = (
@@ -68,12 +67,9 @@ export default function ListDetailPrice(props: Props) {
   };
 
   const handlePersonChange = (e: SelectChangeEvent<string>) => {
-    // console.log(selectedPerson && selectedPerson[0].person_id);
-    // console.log(selectedPersonId);
     // setInputPerson(selectedPersonId);
     console.log(e.target.value);
     setInputPerson(e.target.value);
-    // console.log(inputPerson);
   };
 
   const addPrice = async () => {

@@ -4,7 +4,7 @@
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-image: url("./login-image2.jpg");
+  background-image: url("./public/login-image2.jpg");
   background-size: cover;
   position: relative;
   .top-header-container {
@@ -48,9 +48,7 @@
       top: 60%;
       left: 50%;
       transform: translate(-50%, -50%);
-      .email-input {
-        margin-left: 5px;
-      }
+      .email-input,
       .password-input {
         margin-left: 5px;
       }
@@ -58,26 +56,18 @@
     .login-button {
       background-color: black;
       color: #f0f0f0;
+      &:hover {
+        background-color: #d27a20;
+        color: #f0f0f0;
+      }
     }
-
-    // .image-container {
-    //   position: absolute;
-    //   top: 40%;
-    //   left: 50%;
-    //   transform: translate(-50%, -50%);
-    // }
 
     .signup-link-container {
       text-align: center;
-      //   color: white;
-      //   position: absolute;
-      // top: 75%;
-      // left: 50%;
-      // transform: translate(-50%, -50%);
       font-size: small;
       &:hover {
-        background-color: black;
-        color: white;
+        background-color: #d27a20;
+        color: #f0f0f0;
       }
     }
   }

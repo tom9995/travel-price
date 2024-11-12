@@ -48,7 +48,6 @@ export default function ListDetailPerson(props: Prosp) {
       const { person_id, person_name, created_at } =
         await personRepository.create(inputPerson);
       await personRepository.creatParticipants(props.travelId, person_id);
-      // console.log(addedPerson);
       dispatch(add({ person_id, person_name, created_at }));
       setInputPerson("");
     }
