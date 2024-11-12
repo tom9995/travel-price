@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
     "preview": "vite preview",
-    "build": "vite build && cp -r dist docs",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "rebuild": "vite build && rm -R docs && cp -r dist docs",
     "git": "git add . && git commit && git push origin main",
-    "deploy": "gh-pages -d dist",
     "postbuild": "cp dist/index.html dist/404.html"
   },
   "dependencies": {
