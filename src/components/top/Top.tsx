@@ -22,7 +22,7 @@ export default function Top() {
     // stateの更新
     setEmail("");
     setPassword("");
-    if (signInUser.userName) {
+    if (signInUser.email) {
       dispatch(
         signIn({
           email: signInUser.email,
