@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
     "lint": "eslint .",
+    "build": "tsc -b && vite build && cp -r dist docs",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "rebuild": "vite build && rm -R docs && cp -r dist docs"
   },
   "homepage": "https://tom9995.github.io/travel-price/",
   "dependencies": {
