@@ -9,9 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "git": "git add . && git commit && git push origin main"
+    "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://tom9995.github.io/travel-price/",
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
