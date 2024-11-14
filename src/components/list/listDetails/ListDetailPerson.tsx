@@ -94,7 +94,7 @@ export default function ListDetailPerson(props: Prosp) {
         <TextField
           variant="standard"
           type="text"
-          placeholder="名前"
+          placeholder="Enter member name"
           value={inputPerson}
           onChange={(e) => handleChangePerson(e)}
           className="person-input"

@@ -122,7 +122,7 @@ export default function ListDetailPrice(props: Props) {
             className="input-title"
             variant="standard"
             type="text"
-            placeholder="タイトル"
+            placeholder="Enter title"
             value={inputTitle}
             onChange={(e) => handleInputTitle(e)}
           ></TextField>
@@ -134,7 +134,7 @@ export default function ListDetailPrice(props: Props) {
             className="input-price"
             variant="standard"
             type="number"
-            placeholder="金額"
+            placeholder="Enter price"
             value={inputPrice}
             onChange={(e) => handleInputPrice(e)}
           ></TextField>
@@ -145,7 +145,7 @@ export default function ListDetailPrice(props: Props) {
           <TextField
             className="input-memo"
             variant="standard"
-            placeholder="メモ"
+            placeholder="Enter memo"
             value={inputMemo}
             onChange={(e) => handleInputMemo(e)}
           ></TextField>
@@ -156,7 +156,7 @@ export default function ListDetailPrice(props: Props) {
             variant="standard"
             sx={{ m: 1, minWidth: 120 }}
           >
-            <InputLabel id="select-person-label">支払者</InputLabel>
+            <InputLabel id="select-person-label">member</InputLabel>
             <Select
               onChange={(e) => handlePersonChange(e)}
               value={inputPerson}
