@@ -5,8 +5,8 @@
   height: 100vh;
   width: 100%;
   // 開発用
-  // background-image: url("./login-image2.jpg");
-  background-image: url("../login-image2.jpg");
+  background-image: url("./login-image2.jpg");
+  // background-image: url("../login-image2.jpg");
   background-size: cover;
   position: relative;
   .signup-header-container {
@@ -64,6 +64,49 @@
       &:hover {
         background-color: #d27a20;
         color: #f0f0f0;
+      }
+    }
+  }
+}
+
+// レスポンシブ対応
+@media (max-width: 768px) {
+  .signup-container {
+    background-position: 50%;
+    .signup-header-container {
+      top: 33%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      .icon-container {
+        padding-top: 50px;
+        padding-right: 10px;
+      }
+    }
+    .signup-container-flame {
+      height: 60%;
+      width: 60%;
+      .form-container {
+        .email-input,
+        .password-input {
+          margin-left: 5px;
+        }
+      }
+      .login-button {
+        background-color: black;
+        color: #f0f0f0;
+        &:hover {
+          background-color: #d27a20;
+          color: #f0f0f0;
+        }
+      }
+
+      .signup-link-container {
+        text-align: center;
+        font-size: small;
+        &:hover {
+          background-color: #d27a20;
+          color: #f0f0f0;
+        }
       }
     }
   }
