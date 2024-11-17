@@ -72,7 +72,7 @@ export default function Signup() {
             登録
           </Button>
           <div className="top-navigater-container" onClick={handleClick}>
-            ログイン画面へ
+            ログイン画面へ戻る
           </div>
         </div>
       </div>
